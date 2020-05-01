@@ -8,10 +8,16 @@ const multer = require('multer');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
+// init sqlite db
+const dbFile = "./.data/sqlite.db";
+const exists = fs.existsSync(dbFile);
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database(dbFile);
+
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname+'/images')    
+    cb(null, __dirname+'/images')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -40,12 +46,12 @@ app.get("/", function (request, response) {
 
 // Next, the the two POST AJAX queries
 
-// Handle a post request to upload an image. 
+// Handle a post request to upload an image.
 app.post('/upload', upload.single('newImage'), function (request, response) {
   console.log("Recieved",request.file.originalname,request.file.size,"bytes")
   if(request.file) {
-    // file is automatically stored in /images, 
-    // even though we can't see it. 
+    // file is automatically stored in /images,
+    // even though we can't see it.
     // We set this up when configuring multer
     response.end("recieved "+request.file.originalname);
   }
@@ -66,11 +72,11 @@ app.post('/saveDisplay', function (req, res) {
       res.send("All well")
     }
   })
-  
+
 });
 
 
-// The GET AJAX query is handled by the static server, since the 
+// The GET AJAX query is handled by the static server, since the
 // file postcardData.json is stored in /public
 
 // listen for requests :)
