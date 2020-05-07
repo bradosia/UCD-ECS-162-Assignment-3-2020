@@ -83,6 +83,10 @@ colorBoxes.forEach((b, i) => {
 document.querySelector('#save').addEventListener('click', () => {
   let msg = document.querySelector('#message');
   let img = document.querySelector('#cardImg');
+  let popup = document.querySelector('#popup');
+  let popupLinkEle = document.querySelector('#popup a');
+  let popupShade = document.querySelector('#popup_shade');
+
   let data = {
     image: img.src,
     color: currentColor.style.backgroundColor,
@@ -99,38 +103,58 @@ document.querySelector('#save').addEventListener('click', () => {
   // setup callback function
   xmlhttp.onloadend = function(e) {
     console.log(xmlhttp.responseText);
-    // immediately switch to display view
-    window.location = "/display.html";
+    let responseData = JSON.parse(xmlhttp.responseText);
+    // now show the shareable link popup
+    popup.style.display = "flex";
+    popupShade.style.display = "block";
+    popupLinkEle.href = "/display.html?id=" + responseData.id;
+    popupLinkEle.textContent = window.location.protocol + "//"
+    + window.location.host + "/display.html?id="
+    + responseData.id;
   }
   // all set up!  Send off the HTTP request
   xmlhttp.send(JSON.stringify(data));
 })
 
+// hide popup
+document.querySelector('#popup').addEventListener('click', (e) => {
+  let popup = document.querySelector('#popup');
+  let popupShade = document.querySelector('#popup_shade');
+  popup.style.display = "none";
+  popupShade.style.display = "none";
+});
+
+// stop clicking popup from closing popup
+document.querySelector('#popup div').addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
 // UPLOAD IMAGE
 document.querySelector('#imgUpload').addEventListener('change', () => {
 
-    // get the file with the file dialog box
-    const selectedFile = document.querySelector('#imgUpload').files[0];
-    // store it in a FormData object
-    const formData = new FormData();
-    formData.append('newImage',selectedFile, selectedFile.name);
+  // get the file with the file dialog box
+  const selectedFile = document.querySelector('#imgUpload').files[0];
+  // store it in a FormData object
+  const formData = new FormData();
+  formData.append('newImage', selectedFile, selectedFile.name);
 
-    let button = document.querySelector('.btn');
+  let button = document.querySelector('.btn');
 
-    // build an HTTP request data structure
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/upload", true);
-    xhr.onloadend = function(e) {
-        // Get the server's response to the upload
-        console.log(xhr.responseText);
-        let newImage = document.querySelector("#cardImg");
-        newImage.src = "/images/"+selectedFile.name;
-        newImage.style.display = 'block';
-        document.querySelector('.image').classList.remove('upload');
-        button.textContent = 'Replace Image';
-    }
+  // build an HTTP request data structure
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/upload", true);
+  xhr.onloadend = function(e) {
+    // Get the server's response to the upload
+    // The response is the file path
+    console.log(xhr.responseText);
+    let newImage = document.querySelector("#cardImg");
+    newImage.src = "http://ecs162.org:3000/images/" + xhr.responseText;
+    newImage.style.display = 'block';
+    document.querySelector('.image').classList.remove('upload');
+    button.textContent = 'Replace Image';
+  }
 
-    button.textContent = 'Uploading...';
-    // actually send the request
-    xhr.send(formData);
+  button.textContent = 'Uploading...';
+  // actually send the request
+  xhr.send(formData);
 });

@@ -3,40 +3,41 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Postcard App</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/reset.css">
-    <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Homemade+Apple|Indie+Flower|Long+Cang&display=swap" rel="stylesheet">
-  </head>
 
-  <body>
-    <header>
-      <h1>
-         Daily Postcard Creator
-      </h1>
-    </header>
+<head>
+  <title>Postcard App</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/reset.css">
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Homemade+Apple|Indie+Flower|Long+Cang&display=swap" rel="stylesheet">
+</head>
 
-    <main>
-      <div class="postcard">
-        <div class="image upload">
-          <img id="cardImg" alt="user uploaded img"/>
-          
-          <!-- Emily does not hate form elements as much as I do -->
-          <form method="post" enctype="multipart/form-data">
-            <button class="btn">Choose Image</button>
-            <input id="imgUpload" type="file" accept="image/*" name="photo"/>
-          </form>
-        </div>
+<body>
+  <header>
+    <h1>
+      Daily Postcard Creator
+    </h1>
+  </header>
 
-        <!-- no white space for placeholder -->
-        <div contenteditable="true" placeholder="Write your message here!" id="message" class="flower"></div>
+  <main>
+    <div class="postcard">
+      <div class="image upload">
+        <img id="cardImg" alt="user uploaded img" />
+
+        <!-- Emily does not hate form elements as much as I do -->
+        <form method="post" enctype="multipart/form-data">
+          <button class="btn">Choose Image</button>
+          <input id="imgUpload" type="file" accept="image/*" name="photo" />
+        </form>
       </div>
-      <div class="edit">
-        <div class="fonts">
+
+      <!-- no white space for placeholder -->
+      <div contenteditable="true" placeholder="Write your message here!" id="message" class="flower"></div>
+    </div>
+    <div class="edit">
+      <div class="fonts">
         <h3>
           Choose your font
         </h3>
@@ -62,47 +63,58 @@
             <input type="radio" id="apple" name="font" value="apple">
           </label>
         </form>
-        </div>
-        <div class="color-picker">
-          <h3>
-            Choose your color
-          </h3>
-          <div class="color">
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          <div class="color-box">
-          </div>
-          </div>
-        </div>
-        <button class="btn" id="save">Share postcard</button>
       </div>
-    </main>
+      <div class="color-picker">
+        <h3>
+          Choose your color
+        </h3>
+        <div class="color">
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+          <div class="color-box">
+          </div>
+        </div>
+      </div>
+      <button class="btn" id="save">Share postcard</button>
+    </div>
+  </main>
 
 
 
-    <footer>
-      <p class="msg">
-         Made on Glitch!
-      </p>
-       <!-- adds the glitch button at the bottom -->
+  <footer>
+    <p class="msg">
+      Made on Glitch!
+    </p>
+    <!-- adds the glitch button at the bottom -->
     <div class="glitchButton"></div>
     <script src="https://button.glitch.me/button.js"></script>
-    <script src="./script.js"></script>
-    </footer>
+  </footer>
 
-  </body>
+  <div class="popup" id="popup">
+    <div class="center">
+      <h2>Share your postcard:</h2>
+      <p><a href="/display.html">/display.html</a></p>
+    </div>
+    <div class="close"></div>
+  </div>
+  <div class="popup_shade" id="popup_shade">
+
+  <script src="./script.js"></script>
+
+</body>
+
 </html>
